@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Data (large files — download separately)
+data/raw/
+data/processed/
+*.pkl
+*.h5
+*.hdf5
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+notebooks/*.ipynb
+
+# Results (reproducible, not tracked)
+results/simulation/
+results/real_data/
+results/benchmark/
+results/*.png
+results/*.md
+!results/paper/
+
+# Paper drafts (unpublished)
+results/paper/manuscript.md
+results/paper/supplementary.md
+
+# Coverage
+.coverage
+htmlcov/
+
+# Environment
+.env
+*.log

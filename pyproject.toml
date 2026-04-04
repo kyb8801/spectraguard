@@ -1,0 +1,61 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "spectraguard"
+version = "0.2.0"
+description = "Uncertainty-aware multi-metric confidence score framework for SERS/Raman/IR spectral quality assessment"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Yongbeom Kim", email = "kyb8801@gmail.com"},
+]
+keywords = ["SERS", "Raman", "spectroscopy", "quality-assessment", "QC", "uncertainty"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "scikit-learn>=1.3",
+    "matplotlib>=3.7",
+    "seaborn>=0.12",
+    "pandas>=2.0",
+    "lmfit>=1.2",
+]
+
+[project.optional-dependencies]
+dashboard = ["streamlit>=1.30", "plotly>=5.15"]
+full = ["h5py>=3.8", "jupyter>=1.0", "streamlit>=1.30", "plotly>=5.15"]
+dev = ["pytest>=7.0", "pytest-cov>=4.0"]
+
+[project.scripts]
+spectraguard = "spectraguard.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/kyb8801/spectraguard"
+Documentation = "https://github.com/kyb8801/spectraguard#readme"
+Issues = "https://github.com/kyb8801/spectraguard/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["spectraguard", "src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
