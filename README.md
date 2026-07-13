@@ -10,6 +10,7 @@ SpectraGuard evaluates spectral quality through six physically interpretable met
 combined into a single Confidence Score (0-100) with bootstrap uncertainty quantification.
 It is the only open-source tool that reports not just *what* your spectral quality score is,
 but *how much you can trust it*.
+Part of a family of honest-UQ metrology tools by the same author: [metroai](https://github.com/kyb8801/metroai) (GUM-compliant uncertainty platform, 214 tests) and [art-metrology-uq](https://github.com/kyb8801/art-metrology-uq) (acoustic metrology + Fisher/CRLB/conformal spec sheets). SpectraGuard applies the same discipline to spectroscopy QC: every score ships with an uncertainty, because a quality number you can't trust is worse than none.
 
 ## Features
 
@@ -25,16 +26,23 @@ but *how much you can trust it*.
 ## Installation
 
 ```bash
-pip install spectraguard
-```
-
-Or from source:
-
-```bash
 git clone https://github.com/kyb8801/spectraguard.git
 cd spectraguard
-pip install -e ".[dev]"
+pip install -e ".[dev]"   # not yet on PyPI — install from source
 ```
+
+## Web app (Streamlit)
+
+The fastest way to see SpectraGuard work — an interactive dashboard with a built-in
+demo spectrum (Good / Marginal / Bad), file upload (CSV/TXT), per-metric score
+breakdown and bootstrap confidence intervals:
+
+```bash
+streamlit run app.py
+```
+
+No data needed: enable "Use demo spectrum" in the sidebar and switch quality levels
+to watch every metric respond.
 
 ## Quick Start
 
@@ -120,7 +128,7 @@ spectraguard/
 │   ├── streaming/      # Real-time analyzer + SPC controller
 │   ├── quality_analyzer.py
 │   └── utils/          # Synthetic data generation
-├── spectraguard/       # PyPI package wrapper + CLI
+├── spectraguard/       # importable package + CLI
 ├── tests/              # 105 tests
 ├── examples/           # Usage examples
 └── benchmarks/         # Comprehensive benchmark suite
@@ -132,7 +140,7 @@ If you use SpectraGuard in your research, please cite:
 
 ```bibtex
 @software{spectraguard2026,
-  author = {Kim, Yongbeom},
+  author = {Kim, Youngbum},
   title = {SpectraGuard: Uncertainty-aware spectral quality assessment},
   year = {2026},
   url = {https://github.com/kyb8801/spectraguard}
