@@ -454,13 +454,27 @@ def figure5_benchmark():
         s4_spectra.append(spec)
     scenarios['S4: High\nHotspot RSD'] = (np.array(s4_spectra), 'Marginal')
 
+    # ------------------------------------------------------------------
+    # HONESTY NOTE -- read before quoting any number from this figure.
+    #
+    # This comparison is CIRCULAR by construction and is NOT a benchmark:
+    #   * the ground-truth label comes from the synthetic generator's own
+    #     parameters (snr, baseline_drift, hotspot_rsd, fluorescence_level),
+    #   * SpectraGuard scores those same parameters,
+    #   * the baselines are given only 1-2 of the 6 dimensions on purpose.
+    # SpectraGuard therefore cannot lose here. The figure shows that the six
+    # metrics respond to the degradations they were designed for -- it does
+    # not show that SpectraGuard beats any real method or any real analyst.
+    # Do not quote the AUC as evidence of superiority.
+    # ------------------------------------------------------------------
+
     # Build reference spectrum for HQI
     ref_spectrum = generate_single_spectrum(wavenumber, snr=100, baseline_drift=0,
                                              hotspot_rsd=0, fluorescence_level=0,
                                              rng=np.random.default_rng(0))
 
     # Evaluate each method on each scenario
-    method_results = {'SNR-only': {}, 'HQI': {}, 'Expert': {}, 'SpectraGuard': {}}
+    method_results = {'SNR-only': {}, 'HQI': {}, 'Expert heuristic (sim.)': {}, 'SpectraGuard': {}}
     all_true = []
     all_pred = {m: [] for m in method_results}
     all_scores = {m: [] for m in method_results}
@@ -493,15 +507,17 @@ def figure5_benchmark():
             all_pred['HQI'].append(hqi_pred)
             all_scores['HQI'].append(hqi)
 
-            # 3. Expert simulation (average of 3 experts with different biases)
+            # 3. SIMULATED expert heuristic -- NOT human expert judgement.
+            #    Three hand-written linear rules over SNR and HQI plus uniform noise.
+            #    This is a synthetic stand-in only; no human ever scored these spectra.
             expert_scores = []
             expert_scores.append(snr_score * 0.7 + rng.uniform(-0.1, 0.1))
             expert_scores.append(snr_score * 0.5 + hqi * 0.3 + rng.uniform(-0.15, 0.15))
             expert_scores.append(hqi * 0.6 + rng.uniform(-0.1, 0.1))
             expert_avg = np.mean(expert_scores)
             expert_pred = 1 if expert_avg > 0.5 else 0
-            all_pred['Expert'].append(expert_pred)
-            all_scores['Expert'].append(np.clip(expert_avg, 0, 1))
+            all_pred['Expert heuristic (sim.)'].append(expert_pred)
+            all_scores['Expert heuristic (sim.)'].append(np.clip(expert_avg, 0, 1))
 
             # 4. SpectraGuard
             sg_result = scorer.score(spec, wn_use)
