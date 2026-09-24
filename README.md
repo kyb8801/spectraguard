@@ -9,7 +9,7 @@
 SpectraGuard evaluates spectral quality through six physically interpretable metrics,
 combined into a single Confidence Score (0-100) with bootstrap uncertainty quantification.
 It reports not just *what* your spectral quality score is, but *how much you can trust it*.
-Part of a family of honest-UQ metrology tools by the same author: [metroai](https://github.com/kyb8801/metroai) (GUM-compliant uncertainty platform, 214 tests) and [art-metrology-uq](https://github.com/kyb8801/art-metrology-uq) (acoustic metrology + Fisher/CRLB/conformal spec sheets). SpectraGuard applies the same discipline to spectroscopy QC: every score ships with an uncertainty, because a quality number you can't trust is worse than none.
+Part of a family of honest-UQ metrology tools by the same author: [metroai](https://github.com/kyb8801/metroai) (GUM-compliant uncertainty platform, 243 tests) and [art-metrology-uq](https://github.com/kyb8801/art-metrology-uq) (acoustic metrology + Fisher/CRLB/conformal spec sheets). SpectraGuard applies the same discipline to spectroscopy QC: every score ships with an uncertainty, because a quality number you can't trust is worse than none.
 
 ## Features
 
